@@ -4,6 +4,9 @@
 // init project
 var express = require('express');
 var app = express();
+var PORT = 5555;
+// const port = process.env.PORT || 80000;
+ app.listen(5555);
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -32,10 +35,22 @@ app.get("/api/timestamp", function (req,res) {
 });
 // TimeStamp with date String
 app.get("/api/timestamp/:date_string", function ( req , res ) {
-let date_string = req.params.date_string;
+let dateString = req.params.date_string;
 console.log(date_string);
 
-let passedInValue = new Date(date_string);
+if (parseInt(dateString) > 10000){
+  let unixTime = new Date(parseInt(dateString));
+  res.json({
+    "unix": unixTime.getTime(),
+    "utc" : unixTime.toUTCString()
+  })
+
+}
+
+
+let passedInValue = new Date(dateString);
+
+
 if (passedInValue == "Invalid Date"){
 
   res.json({ "error" : "Invalid Date" })
