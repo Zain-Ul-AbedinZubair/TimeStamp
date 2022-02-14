@@ -34,35 +34,69 @@ app.get("/api/timestamp", function (req,res) {
     {"unix": now.getTime(), "utc": now.toUTCString() })
 });
 // TimeStamp with date String
-app.get("/api/timestamp/:date_string", function ( req , res ) {
-let dateString = req.params.date_string;
-console.log(date_string);
+// app.get("/api/timestamp/:date_string", function ( req , res ) {
+// let dateString = req.params.date_string;
+// console.log(date_string);
 
-if (parseInt(dateString) > 10000){
-  let unixTime = new Date(parseInt(dateString));
-  res.json({
-    "unix": unixTime.getTime(),
-    "utc" : unixTime.toUTCString()
-  })
+// if (parseInt(dateString) > 10000){
+//   let unixTime = new Date(parseInt(dateString));
+//   res.json({
+//     "unix": unixTime.getTime(),
+//     "utc" : unixTime.toUTCString()
+//   })
 
-}
-
-
-let passedInValue = new Date(dateString);
+// }
 
 
-if (passedInValue == "Invalid Date"){
+// let passedInValue = new Date(dateString);
 
-  res.json({ "error" : "Invalid Date" })
-}
-  else {
+
+// if (passedInValue == "Invalid Date"){
+
+//   res.json({ "error" : "Invalid Date" })
+// }
+//   else {
+//     res.json({
+//       "unix": passedInValue.getTime(),
+//       "utc" : passedInValue.toUTCString()
+//     })
+//   }
+// });
+//  removing timestamp 
+app.get("/api/:date_string", function ( req , res ) {
+  let dateString = req.params.date_string;
+  // console.log(date_string);
+  
+  if (parseInt(dateString) > 10000){
+    let unixTime = new Date(parseInt(dateString));
     res.json({
-      "unix": passedInValue.getTime(),
-      "utc" : passedInValue.toUTCString()
+      "unix": unixTime.getTime(),
+      "utc" : unixTime.toUTCString()
     })
+  
   }
-});
+  
+  
+  let passedInValue = new Date(dateString);
+  
+  
+  if (passedInValue == "Invalid Date"){
+  
+    res.json({ "error" : "Invalid Date" })
+  }
+    else {
+      res.json({
+        "unix": passedInValue.getTime(),
+        "utc" : passedInValue.toUTCString()
+      })
+    }
+  });
 
+
+
+
+
+//end of testing
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
